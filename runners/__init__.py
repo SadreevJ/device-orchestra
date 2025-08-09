@@ -1,3 +1,3 @@
 from .pipeline_runner import PipelineRunner
 
-__all__ = ['PipelineRunner']
+__all__ = ["PipelineRunner"]

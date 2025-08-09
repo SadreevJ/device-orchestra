@@ -10,7 +10,7 @@ def register_default_devices():
     from devices.camera_opencv import OpenCVCamera
     from devices.motor_stepper import StepperMotor
     from debug_tools.fake_device import FakeDevice
-    
+
     device_factory.register("OpenCVCamera", OpenCVCamera)
     device_factory.register("StepperMotor", StepperMotor)
     device_factory.register("FakeDevice", FakeDevice)
@@ -19,12 +19,12 @@ def register_default_devices():
 register_default_devices()
 
 __all__ = [
-    'DeviceBase',
-    'DeviceManager', 
-    'device_factory',
-    'ConfigLoader',
-    'event_bus',
-    'EventBus',
-    'DeviceEvent',
-    'get_logger'
+    "DeviceBase",
+    "DeviceManager",
+    "device_factory",
+    "ConfigLoader",
+    "event_bus",
+    "EventBus",
+    "DeviceEvent",
+    "get_logger",
 ]
