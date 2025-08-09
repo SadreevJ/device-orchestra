@@ -1,0 +1,40 @@
+[
+  {
+    "id": "cam1",
+    "type": "OpenCVCamera",
+    "params": {
+      "index": 0,
+      "resolution": [1920, 1080],
+      "fps": 30
+    }
+  },
+  {
+    "id": "motor1",
+    "type": "StepperMotor",
+    "params": {
+      "port": "/dev/ttyUSB0",
+      "baudrate": 115200,
+      "microstep": 16
+    }
+  },
+  {
+    "id": "fake_cam",
+    "type": "FakeDevice",
+    "params": {
+      "device_type": "camera",
+      "simulation_mode": "normal",
+      "base_delay": 0.1,
+      "error_probability": 0.02
+    }
+  },
+  {
+    "id": "fake_motor",
+    "type": "FakeDevice",
+    "params": {
+      "device_type": "motor",
+      "simulation_mode": "normal",
+      "base_delay": 0.05,
+      "error_probability": 0.01
+    }
+  }
+]

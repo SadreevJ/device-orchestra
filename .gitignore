@@ -1,0 +1,82 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Config files with sensitive data
+config/secrets.json
+config/credentials.json
+*.key
+*.pem
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Documentation builds
+docs/_build/
+
+# Jupyter
+.ipynb_checkpoints
+
+# Local development
+.local/
+temp/
+tmp/
+
+# Integration helpers (optional - remove from public repo)
+INTEGRATION_PROMPT.md
+QUICK_INTEGRATION_PROMPT.md
+INTEGRATION_README.md
+REPOSITORY_NAMES.md
+integration_helper.py
+integration_output/
+
+# Distribution / packaging
+*.egg-info/
+build/
+dist/

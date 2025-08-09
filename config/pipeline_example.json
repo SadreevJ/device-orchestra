@@ -1,0 +1,39 @@
+[
+  {
+    "step": "init",
+    "device": "motor1",
+    "action": "home"
+  },
+  {
+    "step": "capture",
+    "device": "cam1",
+    "action": "capture",
+    "save_to": "images/step1.jpg"
+  },
+  {
+    "step": "move",
+    "device": "motor1",
+    "action": "move",
+    "args": {
+      "steps": 200
+    }
+  },
+  {
+    "step": "capture",
+    "device": "cam1",
+    "action": "capture",
+    "save_to": "images/step2.jpg"
+  },
+  {
+    "step": "wait",
+    "duration": 2.0
+  },
+  {
+    "step": "custom_command",
+    "device": "fake_cam",
+    "action": "capture",
+    "args": {
+      "resolution": [640, 480]
+    }
+  }
+]
