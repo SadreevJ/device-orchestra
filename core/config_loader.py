@@ -10,9 +10,7 @@ class ConfigLoader:
         self.config_dir = config_dir
         self.logger = logging.getLogger("ucdf.config_loader")
 
-    def load_devices_config(
-        self, filename: str = "devices.json"
-    ) -> List[Dict[str, Any]]:
+    def load_devices_config(self, filename: str = "devices.json") -> List[Dict[str, Any]]:
         try:
             config_path = os.path.join(self.config_dir, filename)
             with open(config_path, "r", encoding="utf-8") as f:
@@ -24,9 +22,7 @@ class ConfigLoader:
                     device = {
                         "id": device_id,
                         "type": device_config.get("type", ""),
-                        "params": {
-                            k: v for k, v in device_config.items() if k not in ["type"]
-                        },
+                        "params": {k: v for k, v in device_config.items() if k not in ["type"]},
                     }
                     devices.append(device)
             elif isinstance(data, list):

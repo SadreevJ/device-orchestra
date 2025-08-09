@@ -237,9 +237,7 @@ def debug_command(args):
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="UCDF - Universal Device Control & Debug Framework", prog="ucdf"
-    )
+    parser = argparse.ArgumentParser(description="UCDF - Universal Device Control & Debug Framework", prog="ucdf")
 
     subparsers = parser.add_subparsers(dest="command", help="Доступные команды")
 

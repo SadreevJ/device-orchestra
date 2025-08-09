@@ -40,9 +40,7 @@ class TestConfigLoader:
 class TestDeviceFactory:
 
     def test_register_and_create(self):
-        device = device_factory.create(
-            "FakeDevice", "test_id", {"device_type": "camera"}
-        )
+        device = device_factory.create("FakeDevice", "test_id", {"device_type": "camera"})
 
         assert device is not None
         assert device.id == "test_id"

@@ -62,9 +62,7 @@ class FakeDevice(DeviceBase):
                 "timestamp": time.time(),
                 "resolution": kwargs.get("resolution", [640, 480]),
                 "format": kwargs.get("format", "jpg"),
-                "save_to": kwargs.get(
-                    "save_to", f"images/fake_{self._data_counter}.jpg"
-                ),
+                "save_to": kwargs.get("save_to", f"images/fake_{self._data_counter}.jpg"),
             }
         elif command == "get_frame":
             return f"fake_frame_data_{self._data_counter}"

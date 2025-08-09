@@ -17,9 +17,7 @@ class SerialAdapter:
         try:
             import serial
 
-            self.connection = serial.Serial(
-                port=self.port, baudrate=self.baudrate, timeout=self.timeout
-            )
+            self.connection = serial.Serial(port=self.port, baudrate=self.baudrate, timeout=self.timeout)
 
             if self.connection.is_open:
                 self.is_connected = True

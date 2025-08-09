@@ -52,11 +52,7 @@ class OpenCVCamera(DeviceBase):
             "index": self.index,
             "resolution": self.resolution,
             "fps": self.fps,
-            "connected": (
-                self.capture is not None and self.capture.isOpened()
-                if self.capture
-                else False
-            ),
+            "connected": (self.capture is not None and self.capture.isOpened() if self.capture else False),
         }
 
     def send_command(self, command: str, **kwargs) -> Any:

@@ -70,9 +70,7 @@ class TestPipelineRunner:
             self.manager.stop("test_cam")
 
     def test_pipeline_with_error(self):
-        pipeline = [
-            {"step": "capture", "device": "nonexistent_device", "action": "capture"}
-        ]
+        pipeline = [{"step": "capture", "device": "nonexistent_device", "action": "capture"}]
 
         result = self.runner.run_pipeline(pipeline)
 
@@ -96,9 +94,7 @@ class TestPipelineRunner:
         assert step_result["simulated"] is True
 
     def test_pipeline_validation(self):
-        valid_pipeline = [
-            {"step": "capture", "device": "test_cam", "action": "capture"}
-        ]
+        valid_pipeline = [{"step": "capture", "device": "test_cam", "action": "capture"}]
 
         errors = self.runner.validate_pipeline(valid_pipeline)
         assert len(errors) == 0
@@ -109,9 +105,7 @@ class TestPipelineRunner:
         assert len(errors) > 0
         assert "отсутствует поле 'step'" in errors[0]
 
-        invalid_pipeline2 = [
-            {"step": "capture", "device": "nonexistent", "action": "capture"}
-        ]
+        invalid_pipeline2 = [{"step": "capture", "device": "nonexistent", "action": "capture"}]
 
         errors = self.runner.validate_pipeline(invalid_pipeline2)
         assert len(errors) > 0

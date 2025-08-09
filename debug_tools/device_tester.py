@@ -77,9 +77,7 @@ class DeviceTester:
         success_count = sum(1 for r in device_results if r.success)
         total_count = len(device_results)
 
-        self.logger.info(
-            f"Тестирование {device_id}: {success_count}/{total_count} тестов прошли"
-        )
+        self.logger.info(f"Тестирование {device_id}: {success_count}/{total_count} тестов прошли")
         return device_results
 
     def test_all_devices(self) -> Dict[str, List[DeviceTestResult]]:
@@ -212,8 +210,6 @@ class DeviceTester:
             "total_tests": total_tests,
             "successful_tests": successful_tests,
             "failed_tests": total_tests - successful_tests,
-            "success_rate": (
-                (successful_tests / total_tests * 100) if total_tests > 0 else 0
-            ),
+            "success_rate": ((successful_tests / total_tests * 100) if total_tests > 0 else 0),
             "results": [r.to_dict() for r in self.test_results],
         }

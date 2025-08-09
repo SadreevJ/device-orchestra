@@ -69,9 +69,7 @@ def main():
                 runner.set_dry_run(True)
                 result = runner.run_pipeline(pipeline)
 
-                print(
-                    f"  Результат: {result['successful_steps']}/{result['total_steps']} шагов выполнено"
-                )
+                print(f"  Результат: {result['successful_steps']}/{result['total_steps']} шагов выполнено")
                 print(f"  Время выполнения: {result['total_duration']:.3f}с")
 
         except Exception as e:

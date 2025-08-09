@@ -39,9 +39,7 @@ class PerformanceMonitor:
             self.monitoring = True
             self.stop_event.clear()
 
-            self.monitor_thread = threading.Thread(
-                target=self._monitor_worker, daemon=True
-            )
+            self.monitor_thread = threading.Thread(target=self._monitor_worker, daemon=True)
             self.monitor_thread.start()
 
             self.logger.info(f"Мониторинг производительности запущен")
@@ -126,17 +124,11 @@ class PerformanceMonitor:
         else:
             return list(self.metrics_history)
 
-    def get_average_metrics(
-        self, device_id: str = None, last_minutes: int = 5
-    ) -> Dict[str, float]:
+    def get_average_metrics(self, device_id: str = None, last_minutes: int = 5) -> Dict[str, float]:
         cutoff_time = time.time() - (last_minutes * 60)
 
         if device_id:
-            metrics = [
-                m
-                for m in self.device_metrics.get(device_id, [])
-                if m.timestamp > cutoff_time
-            ]
+            metrics = [m for m in self.device_metrics.get(device_id, []) if m.timestamp > cutoff_time]
         else:
             metrics = [m for m in self.metrics_history if m.timestamp > cutoff_time]
 
@@ -180,8 +172,5 @@ class PerformanceMonitor:
             "sample_interval": self.sample_interval,
             "max_history": self.max_history,
             "total_metrics": len(self.metrics_history),
-            "device_metrics_count": {
-                device_id: len(metrics)
-                for device_id, metrics in self.device_metrics.items()
-            },
+            "device_metrics_count": {device_id: len(metrics) for device_id, metrics in self.device_metrics.items()},
         }

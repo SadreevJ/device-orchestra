@@ -19,9 +19,7 @@ class StepperMotor(DeviceBase):
         try:
             import serial
 
-            self.serial_conn = serial.Serial(
-                port=self.port, baudrate=self.baudrate, timeout=1.0
-            )
+            self.serial_conn = serial.Serial(port=self.port, baudrate=self.baudrate, timeout=1.0)
 
             if not self.serial_conn.is_open:
                 raise RuntimeError(f"Не удалось открыть порт {self.port}")
@@ -56,11 +54,7 @@ class StepperMotor(DeviceBase):
             "baudrate": self.baudrate,
             "microstep": self.microstep,
             "position": self._position,
-            "connected": (
-                self.serial_conn is not None and self.serial_conn.is_open
-                if self.serial_conn
-                else False
-            ),
+            "connected": (self.serial_conn is not None and self.serial_conn.is_open if self.serial_conn else False),
         }
 
     def send_command(self, command: str, **kwargs) -> Any:

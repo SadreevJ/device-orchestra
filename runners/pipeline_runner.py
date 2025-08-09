@@ -18,9 +18,7 @@ class PipelineRunner:
         try:
             with open(pipeline_path, "r", encoding="utf-8") as f:
                 pipeline = json.load(f)
-            self.logger.info(
-                f"Загружен пайплайн: {pipeline_path}, шагов: {len(pipeline)}"
-            )
+            self.logger.info(f"Загружен пайплайн: {pipeline_path}, шагов: {len(pipeline)}")
             return pipeline
         except Exception as e:
             self.logger.error(f"Ошибка загрузки пайплайна {pipeline_path}: {e}")
@@ -38,9 +36,7 @@ class PipelineRunner:
             step_start_time = time.time()
 
             try:
-                self.logger.info(
-                    f"Шаг {i+1}/{len(pipeline)}: {step.get('step', 'unknown')}"
-                )
+                self.logger.info(f"Шаг {i+1}/{len(pipeline)}: {step.get('step', 'unknown')}")
 
                 if self.dry_run:
                     result = self._dry_run_step(step)
@@ -80,9 +76,7 @@ class PipelineRunner:
         pipeline_result = {
             "total_steps": len(pipeline),
             "executed_steps": len(results),
-            "successful_steps": len(
-                [r for r in results if r.get("status") == "success"]
-            ),
+            "successful_steps": len([r for r in results if r.get("status") == "success"]),
             "failed_steps": len(errors),
             "total_duration": total_duration,
             "results": results,
@@ -221,30 +215,22 @@ class PipelineRunner:
 
         if step_type in ["capture", "move", "init", "custom_command"]:
             if "device" not in step:
-                errors.append(
-                    f"Шаг {step_num}: отсутствует поле 'device' для типа '{step_type}'"
-                )
+                errors.append(f"Шаг {step_num}: отсутствует поле 'device' для типа '{step_type}'")
             else:
                 device_id = step["device"]
                 try:
                     self.device_manager.get(device_id)
                 except ValueError:
-                    errors.append(
-                        f"Шаг {step_num}: устройство '{device_id}' не найдено"
-                    )
+                    errors.append(f"Шаг {step_num}: устройство '{device_id}' не найдено")
 
         elif step_type == "wait":
             if "duration" not in step:
-                errors.append(
-                    f"Шаг {step_num}: отсутствует поле 'duration' для типа 'wait'"
-                )
+                errors.append(f"Шаг {step_num}: отсутствует поле 'duration' для типа 'wait'")
             elif not isinstance(step["duration"], (int, float)):
                 errors.append(f"Шаг {step_num}: поле 'duration' должно быть числом")
 
         elif step_type == "save":
             if "filepath" not in step:
-                errors.append(
-                    f"Шаг {step_num}: отсутствует поле 'filepath' для типа 'save'"
-                )
+                errors.append(f"Шаг {step_num}: отсутствует поле 'filepath' для типа 'save'")
 
         return errors
