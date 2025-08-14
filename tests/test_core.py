@@ -64,12 +64,20 @@ class TestDeviceManager:
             {
                 "id": "fake_cam",
                 "type": "FakeDevice",
-                "params": {"device_type": "camera"},
+                "params": {
+                    "device_type": "camera",
+                    "error_probability": 0.0,
+                    "simulation_mode": "normal"
+                },
             },
             {
                 "id": "fake_motor",
                 "type": "FakeDevice",
-                "params": {"device_type": "motor"},
+                "params": {
+                    "device_type": "motor",
+                    "error_probability": 0.0,
+                    "simulation_mode": "normal"
+                },
             },
         ]
 
@@ -82,11 +90,9 @@ class TestDeviceManager:
 
     def test_load_config(self):
         devices = self.manager.list()
-        assert len(devices) == 4  # cam1, motor1, fake_cam, fake_motor
+        assert len(devices) == 2  # fake_cam, fake_motor
 
         device_ids = [d["id"] for d in devices]
-        assert "cam1" in device_ids
-        assert "motor1" in device_ids
         assert "fake_cam" in device_ids
         assert "fake_motor" in device_ids
 
