@@ -24,12 +24,15 @@ jobs:
     - name: Install system dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y libgl1
+        sudo apt-get install -y libgl1 xvfb
         
     - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        # Устанавливаем дополнительные зависимости для CI
+        pip install pytest-asyncio
+        pip install opencv-python-headless  # Без GUI для CI
         
     - name: Lint with flake8
       run: |
@@ -52,8 +55,14 @@ jobs:
       continue-on-error: true
         
     - name: Test with pytest
+      env:
+        OPENCV_VIDEOIO_PRIORITY_MSMF: 0
+        DISPLAY: :99
       run: |
         pip install pytest pytest-cov
+        # Запускаем виртуальный дисплей для OpenCV
+        Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+        sleep 2
         pytest tests/ -v --cov=. --cov-report=xml
         
     - name: Upload coverage to Codecov
