@@ -516,6 +516,123 @@ python example_usage.py
 MIT License — см. [LICENSE](LICENSE)
 
 
+python cli.py test focus_device
+python cli.py test cv_analyzer --verbose
+
+# Dry-run сложных процессов
+python cli.py run-pipeline workflows/macro_scan.json --dry-run
+
+# Мониторинг производительности
+perf = PerformanceMonitor()
+perf.start_monitoring("focus_device")
+# ... выполнение работы
+perf.get_stats()  # время, память, ошибки
+```
+
+### 💡 Паттерны ООП
+
+#### 1. **Adapter Pattern** — обертка существующего ПО
+```python
+class LegacyCameraAdapter(DeviceBase):
+    """Адаптер для вашей старой системы управления камерой"""
+    def __init__(self, id: str, params: Dict):
+        super().__init__(id, params)
+        from your_legacy import CameraController
+        self.legacy_cam = CameraController(params["com_port"])
+    
+    def send_command(self, command: str, **kwargs):
+        # Транслируйте UCDF команды в ваш API
+        if command == "capture":
+            return self.legacy_cam.take_photo(kwargs.get("filename"))
+```
+
+#### 2. **Strategy Pattern** — разные алгоритмы
+```python
+class AnalyticsDevice(DeviceBase):
+    def __init__(self, id: str, params: Dict):
+        super().__init__(id, params)
+        # Выбор стратегии из конфигурации
+        if params["algorithm"] == "yolo":
+            self.strategy = YoloDetector()
+        elif params["algorithm"] == "custom":
+            self.strategy = YourCustomDetector()
+    
+    def send_command(self, command: str, **kwargs):
+        return self.strategy.process(**kwargs)
+```
+
+#### 3. **Chain of Responsibility** — пайплайн обработки
+```python
+class ImageProcessingPipeline(DeviceBase):
+    def __init__(self, id: str, params: Dict):
+        super().__init__(id, params)
+        self.processors = [
+            YourDenoiser(params["denoise"]),
+            YourSharpener(params["sharpen"]), 
+            YourAnalyzer(params["analysis"])
+        ]
+    
+    def send_command(self, command: str, **kwargs):
+        image = kwargs["image"]
+        for processor in self.processors:
+            image = processor.process(image)
+        return image
+```
+
+#### 4. **Observer Pattern** — уведомления между компонентами
+```python
+# Фокус-стекинг уведомляет о прогрессе
+focus_device.send_command("stack", layers=50)
+
+# Аналитика автоматически реагирует на новые кадры
+@event_bus.subscribe("image_captured")
+def on_new_image(event):
+    analytics.send_command("analyze", image=event.data["filename"])
+```
+
+### Миграционная стратегия
+
+#### Этап 1: Обертывание (1-2 дня)
+```python
+# Создайте адаптеры для существующих компонентов
+FocusStackAdapter(DeviceBase) -> ваш focus_stacking/
+CameraAdapter(DeviceBase) -> ваш camera_control/
+AnalyticsAdapter(DeviceBase) -> ваш analytics/
+```
+
+#### Этап 2: Конфигурирование (1 день)  
+```json
+// config/your_devices.json
+[
+  {"id": "focus1", "type": "FocusStackAdapter", "params": {"config": "focus_stacking/config.yaml"}},
+  {"id": "cam1", "type": "CameraAdapter", "params": {"port": "COM3"}},
+  {"id": "cv1", "type": "AnalyticsAdapter", "params": {"model": "analytics/weights.pth"}}
+]
+```
+
+#### Этап 3: Оркестрация (2-3 дня)
+```python
+# Замените свои скрипты на UCDF пайплайны
+# Получите единообразное логирование, тестирование, мониторинг
+```
+
+### Ценность для вашего проекта
+
+- ✅ **Унификация** — один API для всех компонентов
+- ✅ **Конфигурируемость** — JSON вместо хардкода
+- ✅ **Тестируемость** — dry-run и FakeDevice для отладки
+- ✅ **Мониторинг** — автоматические логи и метрики
+- ✅ **Расширяемость** — новые устройства = просто новый класс
+- ✅ **Переиспользование** — компоненты работают независимо
+
+### Когда НЕ использовать UCDF
+
+- Если у вас всего 1-2 простых скрипта
+- Если производительность критична (UCDF добавляет накладные расходы)
+- Если команда не знакома с ООП паттернами
+
+**Вывод:** UCDF превратит ваш набор разрозненных инструментов в единую, управляемую, тестируемую и расширяемую систему. Особенно ценно для макрофотографии, где нужна точная координация множества устройств!
+>>>>>>> 173072a9e9388c176989ad21ffd30f063fa200f0
 
 ## Участие в разработке
 
