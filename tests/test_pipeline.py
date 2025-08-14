@@ -66,8 +66,8 @@ class TestPipelineRunner:
                 assert step_result["status"] == "success"
 
         finally:
-            self.manager.stop("fake_motor")
-            self.manager.stop("fake_cam")
+            self.manager.stop("test_motor")
+            self.manager.stop("test_cam")
 
     def test_pipeline_with_error(self):
         pipeline = [{"step": "capture", "device": "nonexistent_device", "action": "capture"}]
