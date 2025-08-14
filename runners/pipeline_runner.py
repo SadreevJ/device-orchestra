@@ -9,7 +9,7 @@ class PipelineRunner:
 
     def __init__(self, device_manager: DeviceManager):
         self.device_manager = device_manager
-        self.logger = logging.getLogger("ucdf.pipeline_runner")
+        self.logger = logging.getLogger("device-orchestra.pipeline_runner")
         self.replay_mode = False
         self.dry_run = False
         self.parallel = False

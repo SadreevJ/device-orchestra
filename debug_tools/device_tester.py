@@ -36,7 +36,7 @@ class DeviceTester:
 
     def __init__(self, device_manager: DeviceManager):
         self.device_manager = device_manager
-        self.logger = logging.getLogger("ucdf.device_tester")
+        self.logger = logging.getLogger("device-orchestra.device_tester")
         self.test_results: List[DeviceTestResult] = []
 
     def test_device(self, device_id: str) -> List[DeviceTestResult]:

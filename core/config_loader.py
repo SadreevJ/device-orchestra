@@ -8,7 +8,7 @@ class ConfigLoader:
 
     def __init__(self, config_dir: str = "config"):
         self.config_dir = config_dir
-        self.logger = logging.getLogger("ucdf.config_loader")
+        self.logger = logging.getLogger("device-orchestra.config_loader")
 
     def load_devices_config(self, filename: str = "devices.json") -> List[Dict[str, Any]]:
         try:

@@ -22,7 +22,7 @@ class PerformanceMonitor:
     def __init__(self, max_history: int = 1000, sample_interval: float = 1.0):
         self.max_history = max_history
         self.sample_interval = sample_interval
-        self.logger = logging.getLogger("ucdf.perf_monitor")
+        self.logger = logging.getLogger("device-orchestra.perf_monitor")
 
         self.metrics_history: deque = deque(maxlen=max_history)
         self.device_metrics: Dict[str, deque] = {}

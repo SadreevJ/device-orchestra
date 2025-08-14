@@ -15,7 +15,7 @@ def status_command(args):
 
         devices = manager.list()
 
-        print("Состояние устройств UCDF:")
+        print("Состояние устройств device-orchestra:")
         print("-" * 50)
 
         if not devices:
@@ -177,7 +177,7 @@ def debug_command(args):
         import logging
 
         level = getattr(logging, log_level.upper(), logging.INFO)
-        logging.getLogger("ucdf").setLevel(level)
+        logging.getLogger("device-orchestra").setLevel(level)
         print(f"Уровень логирования установлен: {log_level}")
 
     try:
@@ -237,7 +237,7 @@ def debug_command(args):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="UCDF - Universal Device Control & Debug Framework", prog="ucdf")
+    parser = argparse.ArgumentParser(description="Device Orchestra - Universal Device Control & Debug Framework", prog="device-orchestra")
 
     subparsers = parser.add_subparsers(dest="command", help="Доступные команды")
 

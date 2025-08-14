@@ -45,13 +45,13 @@ class TestPipelineRunner:
 
     def test_simple_pipeline(self):
         pipeline = [
-            {"step": "init", "device": "test_motor", "action": "home"},
-            {"step": "capture", "device": "test_cam", "action": "capture"},
+            {"step": "init", "device": "fake_motor", "action": "home"},
+            {"step": "capture", "device": "fake_cam", "action": "capture"},
             {"step": "wait", "duration": 0.1},
         ]
 
-        self.manager.start("test_motor")
-        self.manager.start("test_cam")
+        self.manager.start("fake_motor")
+        self.manager.start("fake_cam")
 
         try:
             result = self.runner.run_pipeline(pipeline)
@@ -66,8 +66,8 @@ class TestPipelineRunner:
                 assert step_result["status"] == "success"
 
         finally:
-            self.manager.stop("test_motor")
-            self.manager.stop("test_cam")
+            self.manager.stop("fake_motor")
+            self.manager.stop("fake_cam")
 
     def test_pipeline_with_error(self):
         pipeline = [{"step": "capture", "device": "nonexistent_device", "action": "capture"}]
@@ -94,7 +94,7 @@ class TestPipelineRunner:
         assert step_result["simulated"] is True
 
     def test_pipeline_validation(self):
-        valid_pipeline = [{"step": "capture", "device": "test_cam", "action": "capture"}]
+        valid_pipeline = [{"step": "capture", "device": "fake_cam", "action": "capture"}]
 
         errors = self.runner.validate_pipeline(valid_pipeline)
         assert len(errors) == 0
@@ -112,39 +112,39 @@ class TestPipelineRunner:
         assert "не найдено" in errors[0]
 
     def test_pipeline_from_file(self):
-        pipeline = [{"step": "capture", "device": "test_cam", "action": "capture"}]
+        pipeline = [{"step": "capture", "device": "fake_cam", "action": "capture"}]
 
         with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
             json.dump(pipeline, f)
             pipeline_file = f.name
 
         try:
-            self.manager.start("test_cam")
+            self.manager.start("fake_cam")
 
             result = self.runner.run_pipeline_from_file(pipeline_file)
 
             assert result["successful_steps"] == 1
 
         finally:
-            self.manager.stop("test_cam")
+            self.manager.stop("fake_cam")
             os.unlink(pipeline_file)
 
     def test_complex_pipeline(self):
         pipeline = [
-            {"step": "init", "device": "test_motor", "action": "home"},
-            {"step": "capture", "device": "test_cam", "action": "capture"},
+            {"step": "init", "device": "fake_motor", "action": "home"},
+            {"step": "capture", "device": "fake_cam", "action": "capture"},
             {
                 "step": "move",
-                "device": "test_motor",
+                "device": "fake_motor",
                 "action": "move",
                 "args": {"steps": 10},
             },
             {"step": "wait", "duration": 0.05},
-            {"step": "custom_command", "device": "test_cam", "action": "get_frame"},
+            {"step": "custom_command", "device": "fake_cam", "action": "get_frame"},
         ]
 
-        self.manager.start("test_motor")
-        self.manager.start("test_cam")
+        self.manager.start("fake_motor")
+        self.manager.start("fake_cam")
 
         try:
             result = self.runner.run_pipeline(pipeline)
@@ -170,8 +170,8 @@ class TestPipelineRunner:
             assert results[4]["step_type"] == "custom_command"
 
         finally:
-            self.manager.stop("test_motor")
-            self.manager.stop("test_cam")
+            self.manager.stop("fake_motor")
+            self.manager.stop("fake_cam")
 
     def test_pipeline_timing(self):
         pipeline = [{"step": "wait", "duration": 0.1}]

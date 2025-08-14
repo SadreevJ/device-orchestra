@@ -11,7 +11,7 @@ class SerialAdapter:
         self.timeout = timeout
         self.connection = None
         self.is_connected = False
-        self.logger = logging.getLogger(f"ucdf.serial.{port}")
+        self.logger = logging.getLogger(f"device-orchestra.serial.{port}")
 
     def connect(self) -> bool:
         try:

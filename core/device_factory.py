@@ -7,7 +7,7 @@ class DeviceFactory:
 
     def __init__(self):
         self.device_classes: Dict[str, Type[DeviceBase]] = {}
-        self.logger = logging.getLogger("ucdf.factory")
+        self.logger = logging.getLogger("device-orchestra.factory")
 
     def register(self, device_type: str, device_class: Type[DeviceBase]) -> None:
         self.device_classes[device_type] = device_class

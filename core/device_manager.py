@@ -10,7 +10,7 @@ class DeviceManager:
     def __init__(self):
         self.devices: Dict[str, DeviceBase] = {}
         self.config_loader = ConfigLoader()
-        self.logger = logging.getLogger("ucdf.device_manager")
+        self.logger = logging.getLogger("device-orchestra.device_manager")
 
     def load_config(self, path: str) -> None:
         self.config_loader = ConfigLoader(path if "/" in path else "config")

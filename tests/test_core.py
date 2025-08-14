@@ -82,9 +82,11 @@ class TestDeviceManager:
 
     def test_load_config(self):
         devices = self.manager.list()
-        assert len(devices) == 2
+        assert len(devices) == 4  # cam1, motor1, fake_cam, fake_motor
 
         device_ids = [d["id"] for d in devices]
+        assert "cam1" in device_ids
+        assert "motor1" in device_ids
         assert "fake_cam" in device_ids
         assert "fake_motor" in device_ids
 

@@ -6,7 +6,7 @@ class EventBus:
 
     def __init__(self):
         self.subscribers: Dict[str, List[Callable]] = {}
-        self.logger = logging.getLogger("ucdf.events")
+        self.logger = logging.getLogger("device-orchestra.events")
 
     def subscribe(self, event_type: str, callback: Callable[[Any], None]) -> None:
         if event_type not in self.subscribers:

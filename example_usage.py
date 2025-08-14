@@ -9,7 +9,7 @@ def main():
     logger = get_logger("example")
 
     print("=" * 60)
-    print("UCDF - Universal Device Control & Debug Framework")
+    print("Device Orchestra - Universal Device Control & Debug Framework")
     print("Демонстрация основных возможностей")
     print("=" * 60)
 
